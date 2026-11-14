@@ -210,3 +210,16 @@ FONT SIZE SYSTEM (px)
     width: 10rem;
   }
 }
+
+
+/* Chef's pick badge */
+.badge {
+  display: inline-block;
+  width: fit-content;
+  background-color: #edc84b;
+  color: #252525;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 1.2rem !important;
+  font-weight: 500;
+}

@@ -11,14 +11,25 @@ function Header() {
   );
 }
 
-function Pizza(props) {
+function Pizza({ pizza }) {
   return (
-    <li className={props.pizza.soldOut ? "pizza sold-out" : "pizza"}>
-      <img src={props.pizza.photoName} alt={props.pizza.name} />
+    <li className={pizza.soldOut ? "pizza sold-out" : "pizza"}>
+      <img src={pizza.photoName} alt={pizza.name} />
+
       <div>
-        <h3>{props.pizza.name}</h3>
-        <p>{props.pizza.ingredients}</p>
-        <span>{props.pizza.soldOut ? "SOLD OUT" : props.pizza.price}</span>
+        <h3>{pizza.name}</h3>
+
+        {pizza.isPopular && !pizza.soldOut && (
+          <span className="badge">Chef's pick</span>
+        )}
+
+        <p>{pizza.ingredients}</p>
+
+        <span>
+          {pizza.soldOut
+            ? "SOLD OUT"
+            : `$${pizza.price.toFixed(2)}`}
+        </span>
       </div>
     </li>
   );
@@ -28,25 +39,37 @@ function Menu() {
   const hour = new Date().getHours();
   const isOpen = hour >= 10 && hour < 22;
 
+  const numOfPizzas = pizzaData.length;
+
   return (
     <main className="menu">
       <h2>Our Menu</h2>
 
       {isOpen && <p>Authentic Italian Cuisine</p>}
 
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizza={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {numOfPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzaData.map((pizza) => (
+            <Pizza pizza={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>
+          We're still working on our menu.
+          Please come back later :)
+        </p>
+      )}
     </main>
   );
 }
 
-function Order() {
+function Order({ openHour, closeHour }) {
   return (
     <div className="order">
-      <p>We're currently open</p>
+      <p>
+        We're open until {closeHour}:00.
+        Come visit us or order online.
+      </p>
       <button className="btn">Order</button>
     </div>
   );
@@ -54,11 +77,21 @@ function Order() {
 
 function Footer() {
   const hour = new Date().getHours();
-  const isOpen = hour >= 10 && hour < 22;
+  const openHour = 10;
+  const closeHour = 22;
+
+  const isOpen = hour >= openHour && hour < closeHour;
 
   return (
     <footer className="footer">
-      {isOpen ? <Order /> : <p>Sorry, we're closed</p>}
+      {isOpen ? (
+        <Order openHour={openHour} closeHour={closeHour} />
+      ) : (
+        <p>
+          We're happy to welcome you between
+          {" "}{openHour}:00 and {closeHour}:00.
+        </p>
+      )}
     </footer>
   );
 }
