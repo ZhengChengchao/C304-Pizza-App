@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-
+import pizzaData from "./data";
 
 function Header() {
   return (
@@ -32,11 +32,14 @@ function Pizza(props) {
 
 function Menu() {
   return (
-    <div className="menu">
+    <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza />
-      <Pizza />
-    </div>
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizza={pizza} key={pizza.name} />
+        ))}
+      </ul>
+    </main>
   );
 }
 
