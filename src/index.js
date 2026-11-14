@@ -31,9 +31,15 @@ function Pizza(props) {
 }
 
 function Menu() {
+  const hour = new Date().getHours();
+  const isOpen = hour >= 10 && hour < 22;
+
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+
+      {isOpen && <p>Authentic Italian Cuisine</p>}
+
       <ul className="pizzas">
         {pizzaData.map((pizza) => (
           <Pizza pizza={pizza} key={pizza.name} />
@@ -45,15 +51,22 @@ function Menu() {
 
 function Footer() {
   const hour = new Date().getHours();
+  const isOpen = hour >= 10 && hour < 22;
 
   return (
     <footer className="footer">
-      {hour >= 10 && hour < 22
-        ? "We're currently open"
-        : "Sorry we're closed"}
+      {isOpen ? (
+        <div className="order">
+          <p>We're currently open</p>
+          <button className="btn">Order</button>
+        </div>
+      ) : (
+        <p>Sorry, we're closed</p>
+      )}
     </footer>
   );
 }
+
 
 function App() {
   return (
