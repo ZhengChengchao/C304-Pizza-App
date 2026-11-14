@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import pizzaData from "./data";
-import { FaSeedling } from "react-icons/fa6";
+import { FaSeedling, FaHeart, FaRegHeart } from "react-icons/fa6";
 
 function Header() {
   return (
@@ -12,7 +12,7 @@ function Header() {
   );
 }
 
-function Pizza({ pizza }) {
+function Pizza({ pizza, isFavourite, onToggleFavourite }) {
   return (
     <li className={pizza.soldOut ? "pizza sold-out" : "pizza"}>
       <img src={pizza.photoName} alt={pizza.name} />
@@ -40,38 +40,81 @@ function Pizza({ pizza }) {
             ? "SOLD OUT"
             : `$${pizza.price.toFixed(2)}`}
         </span>
+        <button
+          type="button"
+          className="favourite-btn"
+          onClick={() => onToggleFavourite(pizza.name)}
+          aria-label={
+            isFavourite
+              ? `Remove ${pizza.name} from favourites`
+              : `Add ${pizza.name} to favourites`
+          }
+          aria-pressed={isFavourite}
+        >
+          {isFavourite ? <FaHeart /> : <FaRegHeart />}
+        </button>
       </div>
     </li>
   );
 }
 
-function PizzaSection({ title, pizzas }) {
+function PizzaSection({
+  title,
+  pizzas,
+  favourites,
+  onToggleFavourite
+}) {
   return (
     <section className="pizza-section">
       <h3>{title}</h3>
 
       <ul className="pizzas">
         {pizzas.map((pizza) => (
-          <Pizza pizza={pizza} key={pizza.name} />
+          <Pizza
+            key={pizza.name}
+            pizza={pizza}
+            isFavourite={favourites.includes(pizza.name)}
+            onToggleFavourite={onToggleFavourite}
+          />
         ))}
       </ul>
     </section>
   );
 }
 
-
 function Menu() {
   const hour = new Date().getHours();
   const isOpen = hour >= 10 && hour < 22;
 
+  // Search state
   const [search, setSearch] = useState("");
 
-  // Filter pizzas by name or ingredients
-  const filteredPizzas = pizzaData.filter((pizza) =>
-    (pizza.name + " " + pizza.ingredients)
+  // Favourites state
+  const [favourites, setFavourites] = useState([]);
+  const [showFavourites, setShowFavourites] = useState(false);
+
+  // Function to add or remove a favourite
+  function toggleFavourite(pizzaName) {
+    setFavourites((currentFavourites) =>
+      currentFavourites.includes(pizzaName)
+        ? currentFavourites.filter((name) => name !== pizzaName)
+        : [...currentFavourites, pizzaName]
+    );
+  }
+
+  // Filter pizzas by search and favourites
+  const filteredPizzas = pizzaData.filter((pizza) => {
+    const matchesSearch = (
+      pizza.name + " " + pizza.ingredients
+    )
       .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+      .includes(search.toLowerCase());
+
+    const matchesFavourites =
+      !showFavourites || favourites.includes(pizza.name);
+
+    return matchesSearch && matchesFavourites;
+  });
 
   // Separate filtered pizzas into categories
   const vegPizzas = filteredPizzas.filter(
@@ -103,12 +146,22 @@ function Menu() {
             />
           </div>
 
+          <button
+            className="favourites-filter"
+            onClick={() => setShowFavourites(!showFavourites)}
+          >
+            <FaHeart />
+            Favourites ({favourites.length})
+          </button>
+
           {filteredPizzas.length > 0 ? (
             <>
               {vegPizzas.length > 0 && (
                 <PizzaSection
                   title="Vegetarian"
                   pizzas={vegPizzas}
+                  favourites={favourites}
+                  onToggleFavourite={toggleFavourite}
                 />
               )}
 
@@ -116,11 +169,17 @@ function Menu() {
                 <PizzaSection
                   title="Meat Lovers"
                   pizzas={meatPizzas}
+                  favourites={favourites}
+                  onToggleFavourite={toggleFavourite}
                 />
               )}
             </>
           ) : (
-            <p>No pizzas found. Try another search.</p>
+            <p>
+              {showFavourites
+                ? "No favourite pizzas match your search."
+                : "No pizzas found. Try another search."}
+            </p>
           )}
         </>
       ) : (
