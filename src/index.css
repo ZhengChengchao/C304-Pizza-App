@@ -234,3 +234,118 @@ FONT SIZE SYSTEM (px)
   margin-bottom: 2.4rem;
   text-align: center;
 }
+
+
+/* Requirement 6 - Search feature */
+
+.search-container {
+  width: 100%;
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-container label {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  background-color: white;
+  font-family: inherit;
+  font-size: 1.4rem;
+}
+
+.search-container input:focus {
+  outline: 2px solid #536b4a;
+  outline-offset: 2px;
+}
+
+
+
+/* Requirement 6 - Restaurant theme */
+
+body {
+  background-color: #f7f2e9;
+  color: #333333;
+  border-bottom-color: #536b4a;
+}
+
+.header h1 {
+  color: #a63d32;
+  font-weight: 500;
+}
+
+.header h1::before,
+.header h1::after {
+  background-color: #a63d32;
+}
+
+.menu h2 {
+  color: #536b4a;
+}
+
+/* Pizza category sections */
+.pizza-section {
+  width: 100%;
+}
+
+.pizza-section h3 {
+  font-size: 2.4rem;
+  margin-bottom: 2.4rem;
+  text-align: center;
+}
+
+/* Individual pizza cards */
+.pizza {
+  background-color: white;
+  padding: 1.6rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.pizza:hover {
+  transform: translateY(-4px);
+}
+
+.pizza img {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.pizza.sold-out {
+  background-color: #eeeeee;
+}
+
+/* Order button */
+.btn {
+  background-color: #536b4a;
+  color: white;
+  border-radius: 8px;
+}
+
+.btn:hover {
+  background-color: #3d5236;
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .pizzas {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
+  .pizza {
+    gap: 1.6rem;
+  }
+
+  .header h1 {
+    font-size: 3.2rem;
+  }
+}
