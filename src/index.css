@@ -402,3 +402,84 @@ body {
 .favourites-filter.active:hover {
   background-color: #822d26;
 }
+
+
+/* Requirement 6 - Improved pizza card layout */
+
+.pizza {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+  min-height: 24rem;
+}
+
+.pizza img {
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.pizza .pizza-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0;
+}
+
+.pizza h3 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 2rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.pizza h3 svg {
+  flex-shrink: 0;
+}
+
+.pizza .badge {
+  align-self: flex-start;
+  width: fit-content;
+  margin: 0;
+}
+
+.pizza p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.pizza .pizza-price {
+  margin-top: auto;
+  font-weight: 500;
+}
+
+.pizza .favourite-btn {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+/* Smaller screens */
+@media (max-width: 600px) {
+  .pizza {
+    grid-template-columns: 10rem minmax(0, 1fr);
+    gap: 1.6rem;
+    min-height: 22rem;
+  }
+
+  .pizza img {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .pizza {
+    grid-template-columns: 1fr;
+  }
+}

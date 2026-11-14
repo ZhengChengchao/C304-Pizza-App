@@ -17,7 +17,7 @@ function Pizza({ pizza, isFavourite, onToggleFavourite }) {
     <li className={pizza.soldOut ? "pizza sold-out" : "pizza"}>
       <img src={pizza.photoName} alt={pizza.name} />
 
-      <div>
+      <div className="pizza-details">
         <h3>
           {pizza.name}
           {pizza.category === "veg" && (
@@ -35,11 +35,12 @@ function Pizza({ pizza, isFavourite, onToggleFavourite }) {
 
         <p>{pizza.ingredients}</p>
 
-        <span>
+        <span className="pizza-price">
           {pizza.soldOut
             ? "SOLD OUT"
             : `$${pizza.price.toFixed(2)}`}
         </span>
+
         <button
           type="button"
           className="favourite-btn"
