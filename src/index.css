@@ -38,10 +38,7 @@ body {
 }
 
 .header h1 {
-  /* Non-accessible color */
-  color: #edc84b;
-  /* color: #af8602; */
-
+  color: #af8602;
   text-transform: uppercase;
   text-align: center;
   font-size: 5.2rem;
@@ -54,13 +51,7 @@ body {
 
 .header h1::before,
 .header h1::after {
-  display: block;
-  content: '';
-  height: 3px;
-  width: 12rem;
-  background-color: #edc84b;
-  position: absolute;
-  top: calc(50% - 1px);
+  background-color: #af8602;
 }
 
 .header h1::before {
@@ -185,3 +176,37 @@ SPACING SYSTEM (px)
 FONT SIZE SYSTEM (px)
 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /52 / 62 / 74 / 86 / 98
 */
+
+
+/* Responsive design for mobile devices */
+@media (max-width: 600px) {
+  body {
+    padding: 2rem;
+  }
+
+  .container {
+    gap: 3.2rem;
+  }
+
+  .header h1 {
+    font-size: 3.2rem;
+  }
+
+  .header h1::before,
+  .header h1::after {
+    display: none;
+  }
+
+  .pizzas {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+  }
+
+  .pizza {
+    gap: 1.6rem;
+  }
+
+  .pizza img {
+    width: 10rem;
+  }
+}

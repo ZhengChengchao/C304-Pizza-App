@@ -5,15 +5,9 @@ import pizzaData from "./data";
 
 function Header() {
   return (
-    <h1
-      style={{
-        color: "orange",
-        fontSize: "48px",
-        textTransform: "uppercase"
-      }}
-    >
-      Andy's Pizza Co.
-    </h1>
+    <header className="header">
+      <h1>Andy's Pizza Co.</h1>
+    </header>
   );
 }
 
