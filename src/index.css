@@ -223,3 +223,14 @@ FONT SIZE SYSTEM (px)
   font-size: 1.2rem !important;
   font-weight: 500;
 }
+
+/* Pizza section */
+.pizza-section {
+  width: 100%;
+}
+
+.pizza-section h3 {
+  font-size: 2.4rem;
+  margin-bottom: 2.4rem;
+  text-align: center;
+}

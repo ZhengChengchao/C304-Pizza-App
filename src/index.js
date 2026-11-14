@@ -35,11 +35,33 @@ function Pizza({ pizza }) {
   );
 }
 
+function PizzaSection({ title, pizzas }) {
+  return (
+    <section className="pizza-section">
+      <h3>{title}</h3>
+
+      <ul className="pizzas">
+        {pizzas.map((pizza) => (
+          <Pizza pizza={pizza} key={pizza.name} />
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Menu() {
   const hour = new Date().getHours();
   const isOpen = hour >= 10 && hour < 22;
 
   const numOfPizzas = pizzaData.length;
+
+  const vegPizzas = pizzaData.filter(
+    (pizza) => pizza.category === "veg"
+  );
+
+  const meatPizzas = pizzaData.filter(
+    (pizza) => pizza.category === "meat"
+  );
 
   return (
     <main className="menu">
@@ -48,11 +70,10 @@ function Menu() {
       {isOpen && <p>Authentic Italian Cuisine</p>}
 
       {numOfPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzaData.map((pizza) => (
-            <Pizza pizza={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        <>
+          <PizzaSection title="Vegetarian" pizzas={vegPizzas} />
+          <PizzaSection title="Meat lovers" pizzas={meatPizzas} />
+        </>
       ) : (
         <p>
           We're still working on our menu.
