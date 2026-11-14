@@ -43,24 +43,25 @@ function Menu() {
   );
 }
 
+function Order() {
+  return (
+    <div className="order">
+      <p>We're currently open</p>
+      <button className="btn">Order</button>
+    </div>
+  );
+}
+
 function Footer() {
   const hour = new Date().getHours();
   const isOpen = hour >= 10 && hour < 22;
 
   return (
     <footer className="footer">
-      {isOpen ? (
-        <div className="order">
-          <p>We're currently open</p>
-          <button className="btn">Order</button>
-        </div>
-      ) : (
-        <p>Sorry, we're closed</p>
-      )}
+      {isOpen ? <Order /> : <p>Sorry, we're closed</p>}
     </footer>
   );
 }
-
 
 function App() {
   return (
