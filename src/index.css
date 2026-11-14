@@ -390,3 +390,15 @@ body {
   outline: 2px solid #536b4a;
   outline-offset: 3px;
 }
+
+/* Favourites filter active state */
+
+.favourites-filter.active {
+  background-color: #a63d32;
+  color: white;
+  border-color: #a63d32;
+}
+
+.favourites-filter.active:hover {
+  background-color: #822d26;
+}

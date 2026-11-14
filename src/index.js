@@ -145,10 +145,12 @@ function Menu() {
               }
             />
           </div>
-
+        
           <button
-            className="favourites-filter"
+            type="button"
+            className={`favourites-filter ${showFavourites ? "active" : ""}`}
             onClick={() => setShowFavourites(!showFavourites)}
+            aria-pressed={showFavourites}
           >
             <FaHeart />
             Favourites ({favourites.length})
