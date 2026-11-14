@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import pizzaData from "./data";
+import { FaSeedling } from "react-icons/fa6";
 
 function Header() {
   return (
@@ -17,7 +18,16 @@ function Pizza({ pizza }) {
       <img src={pizza.photoName} alt={pizza.name} />
 
       <div>
-        <h3>{pizza.name}</h3>
+        <h3>
+          {pizza.name}
+          {pizza.category === "veg" && (
+            <FaSeedling
+              size={16}
+              color="green"
+              aria-label="Vegetarian"
+            />
+          )}
+        </h3>
 
         {pizza.isPopular && !pizza.soldOut && (
           <span className="badge">Chef's pick</span>
@@ -88,7 +98,7 @@ function Order({ openHour, closeHour }) {
   return (
     <div className="order">
       <p>
-        We're open until {closeHour}:00.
+        We're open from {openHour}:00 until {closeHour}:00.
         Come visit us or order online.
       </p>
       <button className="btn">Order</button>
