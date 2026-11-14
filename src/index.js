@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import pizzaData from "./data";
@@ -59,17 +59,26 @@ function PizzaSection({ title, pizzas }) {
   );
 }
 
+
 function Menu() {
   const hour = new Date().getHours();
   const isOpen = hour >= 10 && hour < 22;
 
-  const numOfPizzas = pizzaData.length;
+  const [search, setSearch] = useState("");
 
-  const vegPizzas = pizzaData.filter(
+  // Filter pizzas by name or ingredients
+  const filteredPizzas = pizzaData.filter((pizza) =>
+    (pizza.name + " " + pizza.ingredients)
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  // Separate filtered pizzas into categories
+  const vegPizzas = filteredPizzas.filter(
     (pizza) => pizza.category === "veg"
   );
 
-  const meatPizzas = pizzaData.filter(
+  const meatPizzas = filteredPizzas.filter(
     (pizza) => pizza.category === "meat"
   );
 
@@ -79,10 +88,40 @@ function Menu() {
 
       {isOpen && <p>Authentic Italian Cuisine</p>}
 
-      {numOfPizzas > 0 ? (
+      {pizzaData.length > 0 ? (
         <>
-          <PizzaSection title="Vegetarian" pizzas={vegPizzas} />
-          <PizzaSection title="Meat lovers" pizzas={meatPizzas} />
+          <div className="search-container">
+            <label htmlFor="pizza-search">Find your pizza</label>
+            <input
+              id="pizza-search"
+              type="search"
+              placeholder="Search pizza or ingredients..."
+              value={search}
+              onChange={(event) =>
+                setSearch(event.target.value)
+              }
+            />
+          </div>
+
+          {filteredPizzas.length > 0 ? (
+            <>
+              {vegPizzas.length > 0 && (
+                <PizzaSection
+                  title="Vegetarian"
+                  pizzas={vegPizzas}
+                />
+              )}
+
+              {meatPizzas.length > 0 && (
+                <PizzaSection
+                  title="Meat Lovers"
+                  pizzas={meatPizzas}
+                />
+              )}
+            </>
+          ) : (
+            <p>No pizzas found. Try another search.</p>
+          )}
         </>
       ) : (
         <p>
@@ -93,6 +132,7 @@ function Menu() {
     </main>
   );
 }
+
 
 function Order({ openHour, closeHour }) {
   return (
