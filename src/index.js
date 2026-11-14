@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+
 function Header() {
   return (
     <h1
@@ -16,14 +17,16 @@ function Header() {
   );
 }
 
-function Pizza() {
+function Pizza(props) {
   return (
-    <div>
-      <img src="pizzas/spinaci.jpg" alt="Spinach Pizza" />
-      <h3>Spinach Pizza</h3>
-      <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-      <p>10</p>
-    </div>
+    <li className={props.pizza.soldOut ? "pizza sold-out" : "pizza"}>
+      <img src={props.pizza.photoName} alt={props.pizza.name} />
+      <div>
+        <h3>{props.pizza.name}</h3>
+        <p>{props.pizza.ingredients}</p>
+        <span>{props.pizza.soldOut ? "SOLD OUT" : props.pizza.price}</span>
+      </div>
+    </li>
   );
 }
 
